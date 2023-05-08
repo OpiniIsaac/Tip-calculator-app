@@ -2,9 +2,8 @@
   <div class="content">
     <div class="main d-flex">  <div class="left">
       <p>Bill</p>
-      <input type="text" name="" id="" placeholder="0" />
+      <input type="number"  placeholder="0" v-model="bill" />
       <p>Select Tip %</p>
-
       <button class="btn" @click="handleButtonClick('5')" >5%</button>
       <button class="btn" @click="handleButtonClick('10')">10%</button>
       <button class="btn" @click="handleButtonClick('15')">15%</button>
@@ -19,27 +18,32 @@
 "
       />
       <p>Number of People</p>
-      <input type="text"  placeholder="0"/>
+      <input type="number" v-model="people" placeholder="0"/>
     </div>
 
     <div class="right">
-      <div class="d-flex">
+      <div class="d-flex justify-content-between">
         <div>
           <h6>Tip Amount</h6>
-          <p>/ person</p>
+          <p class="same">/ person</p>
         </div>
-        <div><input type="text" placeholder="0" /></div>
+        <div>
+          <h5 >           {{ tip }}
+          </h5>
+        </div>
       </div>
 
-      <div class="d-flex">
+      <div class="d-flex justify-content-between">
         <div>
           <h6>Total</h6>
           <p>/ person</p>
         </div>
-        <div><input type="text" /></div>
+        <div>
+          <h5 class="same">{{total}}</h5>
+          </div>
       </div>
 
-      <button class="btn-block btn reset">Reset</button>
+      <button @click="resetFields" class="btn-block btn reset" >Reset</button>
     </div></div>
     </div>
 </template>
@@ -50,7 +54,7 @@ export default {
     return {
       bill: '',
       percent:'',
-      people:''
+      people:1
     };
   },
   methods: {
@@ -59,7 +63,19 @@ export default {
   return console.log(this.percent)
   
     },
+    resetFields(){
+      this.bill='',
+      this.percent=''
+    }
   },
+  computed:{
+    tip(){
+      return parseInt(this.percent /100*this.bill)
+    }, 
+    total(){
+      return this.tip += this.bill / this.people
+    }
+  }
 };
 </script>
 
@@ -75,13 +91,14 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  
+  border-radius: 10px;
+
 }
 
 .left{
 color: hsl(186, 14%, 43%); 
 padding: 10px;
-border-radius: 10px;
+width: 400px;
 
 }
 input{
@@ -109,6 +126,10 @@ button{
   background-color:  hsl(183, 100%, 15%);
   padding: 10px;
   border-radius: 10px;
+  width: 300px;
+}
+h5 {
+  color: hsl(172, 67%, 45%);
 }
 h6{
   color: white;
