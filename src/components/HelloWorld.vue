@@ -14,8 +14,7 @@
       v-model="percent"
         class="custom"
         type="text"
-        placeholder="  Custom
-"
+        placeholder="Custom"
       />
       <p>Number of People</p>
       <input type="number" v-model="people" placeholder="0"/>
